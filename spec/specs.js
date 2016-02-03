@@ -12,4 +12,8 @@ describe( 'Pig Latin', function() {
       var testLatin = "paper".toPigLatin( );
       expect(testLatin).to.equal("aperpay") 
    });
+     it("handles multiple words if word begins with consonants, shift them and add 'ay' to end or if consonants has 'qu", function() {
+      var testLatin = "squeel pig".toPigLatin( );
+      expect(testLatin).to.equal("eelsquay igpay") 
+   });
 });

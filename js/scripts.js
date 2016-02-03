@@ -19,36 +19,55 @@ String.prototype.toPigLatin = function( ) {
     // Slice( ) - Extracts a part of a string and returns a new string
     // split( ) - Splits a string into an array of substrings
     
-    if( this.startsWithAnyVowel( ) )
-    {
-        var combine = this.concat( "ay" );
-        return combine;
-    }
-    else
-    {
-        var sliced = this.slice( );
-        var consonants = "";
-        var offset = 0;
-        for( var i = 0; i < sliced.length; i++ )
+    var pigLatin = []
+    var words = ( this.isMultiWord( ) ) ? this.split(" ") : this.split( );
+    
+    for( var word = 0; word < words.length; word++ )
+    {    
+        var sliced = words[ word ];
+        if( sliced.startsWithAnyVowel( ) )
         {
-            if( !sliced[ i ].isVowel( ) )
+            var combine = sliced.concat( "ay" );
+            return combine;
+        }
+        else
+        {
+            var consonants = "";
+            var offset = 0;
+            for( var i = 0; i < sliced.length - 1; i++ )
             {
-                consonants += sliced[ i ];
-            }
-            else
-            {
-                if( consonants[ consonants.length - 1 ] === 'q' && sliced[ i ] === 'u' )
+                if( !sliced[ i ].isVowel( ) )
                 {
-                    consonants += sliced[ i  ];
-                    offset = 1;
+                    consonants += sliced[ i ];
                 }
+                else
+                {
+                    if( consonants[ consonants.length - 1 ] === 'q' && sliced[ i ] === 'u' )
+                    {
+                        consonants += sliced[ i ];
+                        offset = 1;
+                    }
 
-                var newStart = this.slice( i + offset, sliced.length );
-                var result = newStart.concat( consonants, "ay" );
-                return result;
+                    var newStart = sliced.slice( i + offset, sliced.length );
+                    var result = newStart.concat( consonants, "ay" );
+                    pigLatin.unshift( result );
+                    i = sliced.length;
+                }
             }
         }
     }
+    return pigLatin.reverse( ).join( " " );
+}
+
+String.prototype.isMultiWord = function( ) {
+    for( var i = 0; i < this.length; i++ )
+    {
+        if( this[ i ] === ' ' )
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 String.prototype.isVowel = function( ) {
