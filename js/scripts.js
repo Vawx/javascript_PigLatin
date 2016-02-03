@@ -90,3 +90,13 @@ String.prototype.startsWithAnyVowel = function( ) {
     }
     return false;
 }
+
+$(document).ready(function( ) {
+    $("form#piglatin").submit( function(event) {
+       event.preventDefault( );
+       
+       var userInput = $("#new-piglatin").val( ).toPigLatin( );
+       
+       $("ul#phrases").append("<li><span class='year'>" + userInput + "</span></li>" ); 
+    });
+});
