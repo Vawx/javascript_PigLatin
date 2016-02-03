@@ -28,13 +28,13 @@ String.prototype.toPigLatin = function( ) {
         if( sliced.startsWithAnyVowel( ) )
         {
             var combine = sliced.concat( "ay" );
-            return combine;
+            pigLatin.unshift( combine );
         }
         else
         {
             var consonants = "";
             var offset = 0;
-            for( var i = 0; i < sliced.length - 1; i++ )
+            for( var i = 0; i < sliced.length; i++ )
             {
                 if( !sliced[ i ].isVowel( ) )
                 {
@@ -56,6 +56,7 @@ String.prototype.toPigLatin = function( ) {
             }
         }
     }
+    
     return pigLatin.reverse( ).join( " " );
 }
 
