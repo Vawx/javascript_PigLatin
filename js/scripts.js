@@ -91,12 +91,31 @@ String.prototype.startsWithAnyVowel = function( ) {
     return false;
 }
 
+function hasNumeric( n ) {
+    var split = n.split('');
+    for( var i = 0; i < split.length; i++ )
+    {
+        if ( !isNaN( parseInt( split[ i ] ) ) )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 $(document).ready(function( ) {
     $("form#piglatin").submit( function(event) {
        event.preventDefault( );
        
-       var userInput = $("#new-piglatin").val( ).toPigLatin( );
+       var userInput = $("#new-piglatin").val( );
        
-       $("ul#phrases").append("<li><span class='year'>" + userInput + "</span></li>" ); 
+       if( hasNumeric( userInput ) )
+       {
+          $("ul#phrases").append("<li><span class='year'>" + "Invalid input. Did you use numbers?" + "</span></li>" );    
+       }
+       else
+       {
+          $("ul#phrases").append("<li><span class='year'>" + userInput.toPigLatin( ) + "</span></li>" );  
+       }
     });
 });
